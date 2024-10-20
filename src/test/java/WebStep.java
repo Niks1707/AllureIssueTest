@@ -5,12 +5,12 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class WebStep {
 
-    @Step("Открываем вкладку Issues")
+    @Step("Открытие вкладки Issues")
     public void openIssuesTab() {
         $("#issues-tab").click();
     }
 
-    @Step("Проверяем наличие Issue с названием {issueName}")
+    @Step("Проверка наличия Issue с названием {issueName}")
     public void shouldSeeIssueWithName(String issueName) {
         $(withText(issueName)).should(Condition.exist);
     }

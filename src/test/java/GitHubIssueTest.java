@@ -1,7 +1,5 @@
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.*;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.text;
@@ -20,9 +18,8 @@ public class GitHubIssueTest extends TestBase {
     @Owner("Genkel Veronika")
     @Severity(SeverityLevel.BLOCKER)
     @Link(value = "Testing", url = "https://github.com/qa-guru/qa_guru_14_10/")
-    @DisplayName("Проверка на чистом Selenide, что Issues содержит ' " + issueName + "'")
+    @DisplayName("Проверка на чистом Selenide, что в Issues содержится ' " + issueName + "'")
     public void selenideIssuesTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
         $("#issues-tab").click();
         $("#issue_2_link").shouldHave(text(issueName));
 
@@ -32,13 +29,12 @@ public class GitHubIssueTest extends TestBase {
     @Owner("Genkel Veronika")
     @Severity(SeverityLevel.BLOCKER)
     @Link(value = "Testing", url = "https://github.com/qa-guru/qa_guru_14_10/issues")
-    @DisplayName("Проверка с использованием лямбда шагов через step, что Issues содержит ' " + issueName + "'")
+    @DisplayName("Проверка с использованием лямбда шагов через step, что в Issues содержится ' " + issueName + "'")
     public void lambdaIssuesTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-        step("Открываем вкладку Issues", () -> {
+        step("Открытие вкладки Issues", () -> {
             $("#issues-tab").click();
         });
-        step("Проверяем в Issues "  + issueName, () -> {
+        step("Проверка в Issues "  + issueName, () -> {
             $(withText(issueName)).should(Condition.exist);
         });
     }
@@ -47,9 +43,8 @@ public class GitHubIssueTest extends TestBase {
     @Owner("Genkel Veronika")
     @Severity(SeverityLevel.BLOCKER)
     @Link(value = "Testing", url = "https://github.com/qa-guru/qa_guru_14_10/issues")
-    @DisplayName("Проверка с использованием аннотации @Step, что Issues содержит ' " + issueName + "'")
-    public void stepIssuesTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
+    @DisplayName("Проверка с использованием аннотации @Step, что в Issues содержится ' " + issueName + "'")
+    public void testStepIssues() {
         steps.openIssuesTab();
         steps.shouldSeeIssueWithName(issueName);
     }
